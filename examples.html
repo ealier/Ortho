@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Примеры работ | OrthoShark</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #00a3e0;
+        --primary-dark: #0077b6;
+        --secondary: #ff6b35;
+        --dark: #1a1a1a;
+        --light: #f8f9fa;
+        --tooth-white: #f0f8ff;
+        --enamel: #f5f5f5;
+        --dentin: #fffaf0;
+        --pulp: #ffebcd;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      body {
+        background-color: var(--tooth-white);
+        color: var(--dark);
+      }
+
+      /* Header (оставлен без изменений) */
+      header {
+        background-color: rgba(255, 255, 255, 0.97);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+      }
+
+      .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.03);
+      }
+
+      .logo img {
+        height: 50px;
+        margin-right: 10px;
+      }
+
+      .logo-text {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 20px;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        position: relative;
+        padding-bottom: 5px;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--primary);
+        transition: width 0.3s;
+      }
+
+      nav ul li a:hover::after,
+      nav ul li a.active::after {
+        width: 100%;
+      }
+
+      nav ul li a.active {
+        color: var(--primary);
+      }
+
+      /* Main Content */
+      .main-content {
+        padding: 120px 0 80px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .page-title {
+        text-align: center;
+        font-size: 2.8rem;
+        color: var(--primary-dark);
+        margin-bottom: 50px;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 20px;
+      }
+
+      .page-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        border-radius: 2px;
+      }
+
+      /* Tooth Facts Section */
+      .tooth-facts {
+        background-color: white;
+        border-radius: 20px;
+        padding: 30px;
+        margin: 40px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tooth-facts::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+      }
+
+      .facts-title {
+        color: var(--primary-dark);
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .facts-title i {
+        margin-right: 15px;
+        color: var(--secondary);
+      }
+
+      .facts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .fact-card {
+        background-color: var(--enamel);
+        padding: 20px;
+        border-radius: 15px;
+        border-left: 5px solid var(--primary);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .fact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .fact-card h3 {
+        color: var(--primary-dark);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .fact-card h3 i {
+        margin-right: 10px;
+        color: var(--secondary);
+      }
+
+      /* Gallery Slider - Improved */
+      .slider-container {
+        position: relative;
+        padding: 60px 0;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          var(--enamel) 0%,
+          var(--dentin) 100%
+        );
+        border-radius: 20px;
+        margin: 40px 0;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      .slider-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="rgba(0,163,224,0.05)" d="M30,10 Q50,5 70,10 Q95,15 90,40 Q85,65 70,80 Q50,95 30,80 Q15,65 10,40 Q5,15 30,10 Z"/></svg>');
+        background-size: 100px;
+        opacity: 0.3;
+      }
+
+      .swiper {
+        width: 100%;
+        padding: 60px 0;
+      }
+
+      .swiper-slide {
+        width: 350px;
+        height: 350px;
+        border-radius: 50% 50% 10% 10%;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        transition: all 0.5s ease;
+        position: relative;
+        border: 12px solid white;
+        background: white;
+      }
+
+      .swiper-slide::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 163, 224, 0.1) 0%,
+          rgba(0, 0, 0, 0.1) 100%
+        );
+        z-index: 1;
+      }
+
+      .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+
+      .swiper-slide-active {
+        transform: scale(1.1);
+        z-index: 10;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+      }
+
+      .swiper-slide-active img {
+        transform: scale(1.05);
+      }
+
+      .slide-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        color: white;
+        z-index: 2;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .swiper-slide:hover .slide-caption {
+        transform: translateY(0);
+      }
+
+      /* Tooth-shaped navigation */
+      .swiper-button-next,
+      .swiper-button-prev {
+        width: 60px;
+        height: 60px;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        color: var(--primary);
+      }
+
+      .swiper-button-next::after,
+      .swiper-button-prev::after {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .swiper-button-next:hover,
+      .swiper-button-prev:hover {
+        background-color: var(--primary);
+        color: white;
+        transform: scale(1.15);
+      }
+
+      /* Tooth-inspired pagination */
+      .swiper-pagination-bullet {
+        width: 14px;
+        height: 14px;
+        background-color: white;
+        opacity: 0.8;
+        border: 2px solid var(--primary);
+        transition: all 0.3s;
+      }
+
+      .swiper-pagination-bullet-active {
+        background-color: var(--primary);
+        transform: scale(1.3);
+        box-shadow: 0 0 10px var(--primary);
+      }
+
+      /* Treatment Process */
+      .process-section {
+        margin: 60px 0;
+      }
+
+      .process-title {
+        text-align: center;
+        font-size: 2rem;
+        color: var(--primary-dark);
+        margin-bottom: 40px;
+      }
+
+      .process-steps {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .process-step {
+        flex: 1;
+        min-width: 250px;
+        max-width: 300px;
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        position: relative;
+        transition: transform 0.3s;
+        border-top: 5px solid var(--primary);
+      }
+
+      .process-step:hover {
+        transform: translateY(-10px);
+      }
+
+      .step-number {
+        position: absolute;
+        top: -20px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        background: var(--primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        box-shadow: 0 5px 15px rgba(0, 163, 224, 0.3);
+      }
+
+      .process-step h3 {
+        color: var(--primary-dark);
+        margin: 15px 0 10px;
+      }
+
+      /* Testimonials - Updated */
+.testimonials {
+    background-color: var(--dentin);
+    padding: 60px 0;
+    margin: 60px 0;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+}
+
+.testimonials-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--primary-dark);
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    margin: 20px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.testimonial-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tooth-avatar {
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.tooth-shape {
+    width: 100px;
+    height: 120px;
+    background: white;
+    border-radius: 50% 50% 10% 10% / 60% 60% 40% 40%;
+    overflow: hidden;
+    border: 5px solid var(--primary);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.tooth-shape::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    z-index: -1;
+    border-radius: 50% 50% 10% 10% / 60% 60% 40% 40%;
+}
+
+.tooth-shape img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.testimonial-text {
+    background: var(--enamel);
+    padding: 25px;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.quote-icon {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    color: rgba(0,163,224,0.2);
+    font-size: 2.5rem;
+}
+
+.testimonial-author {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.testimonial-author h4 {
+    color: var(--primary-dark);
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.testimonial-author p {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .testimonial-card {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .testimonial-text {
+        padding: 20px 15px 20px 25px;
+    }
+}
+
+      .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 15px;
+        border: 3px solid var(--primary);
+      }
+
+      .author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        color: var(--primary-dark);
+        margin-bottom: 5px;
+      }
+
+      .author-info p {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* FAQ Section */
+      .faq-section {
+        margin: 60px 0;
+      }
+
+      .faq-title {
+        text-align: center;
+        font-size: 2rem;
+        color: var(--primary-dark);
+        margin-bottom: 40px;
+      }
+
+      .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .faq-item {
+        background: white;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid var(--primary);
+      }
+
+      .faq-question {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--primary-dark);
+        transition: background 0.3s;
+      }
+
+      .faq-question:hover {
+        background: rgba(0, 163, 224, 0.05);
+      }
+
+      .faq-question i {
+        transition: transform 0.3s;
+      }
+
+      .faq-answer {
+        padding: 0 20px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s, padding 0.3s;
+        background: var(--enamel);
+      }
+
+      .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+      }
+
+      .faq-item.active .faq-answer {
+        max-height: 500px;
+        padding: 20px;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        padding: 60px;
+        border-radius: 20px;
+        color: white;
+        text-align: center;
+        margin: 60px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="rgba(255,255,255,0.1)" d="M30,10 Q50,5 70,10 Q95,15 90,40 Q85,65 70,80 Q50,95 30,80 Q15,65 10,40 Q5,15 30,10 Z"/></svg>');
+        background-size: 150px;
+      }
+
+      .cta-title {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .cta-text {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: white;
+        color: var(--primary-dark);
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Footer (оставлен без изменений) */
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 60px 0 30px;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+      }
+
+      .footer-column h3 {
+        color: var(--primary);
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background-color: var(--secondary);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--primary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 30px;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .header-container {
+          flex-direction: column;
+        }
+
+        nav ul {
+          margin-top: 20px;
+        }
+
+        nav ul li {
+          margin: 0 15px;
+        }
+
+        .swiper-slide {
+          width: 280px;
+          height: 280px;
+        }
+
+        .page-title {
+          font-size: 2.2rem;
+        }
+
+        .process-step {
+          min-width: 100%;
+        }
+
+        .cta-section {
+          padding: 40px 20px;
+        }
+
+        .cta-title {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="header-container">
+        <div class="logo" onclick="window.location.href='index.html'">
+          <img src="logo.png" alt="OrtoShark Logo" />
+          <span class="logo-text">OrthoShark</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">О нас</a></li>
+            <li><a href="examples.html" class="active">Примеры работ</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <h1 class="page-title">Наши работы в ортодонтии</h1>
+
+        <!-- Tooth Facts Section -->
+        <div class="tooth-facts">
+          <h2 class="facts-title">
+            <i class="fas fa-tooth"></i> Интересные факты о зубах
+          </h2>
+          <div class="facts-grid">
+            <div class="fact-card">
+              <h3><i class="fas fa-shield-alt"></i> Самая твердая ткань</h3>
+              <p>
+                Зубная эмаль — самая твердая ткань в организме человека, даже
+                прочнее кости. Она состоит на 96% из минералов.
+              </p>
+            </div>
+            <div class="fact-card">
+              <h3><i class="fas fa-fingerprint"></i> Уникальность зубов</h3>
+              <p>
+                Как и отпечатки пальцев, у каждого человека уникальный набор
+                зубов. Даже у близнецов зубы отличаются.
+              </p>
+            </div>
+            <div class="fact-card">
+              <h3><i class="fas fa-history"></i> Историческая ортодонтия</h3>
+              <p>
+                Первые попытки выравнивания зубов датируются 400-300 гг. до н.э.
+                Гиппократ и Аристотель размышляли о способах исправления зубов.
+              </p>
+            </div>
+            <div class="fact-card">
+              <h3><i class="fas fa-water"></i> Слюна — природный защитник</h3>
+              <p>
+                За день у человека выделяется около 1,5 литров слюны, которая
+                защищает зубы от бактерий и помогает в реминерализации эмали.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery Slider -->
+        <div class="slider-container">
+          <h2
+            style="
+              text-align: center;
+              color: var(--primary-dark);
+              margin-bottom: 30px;
+            "
+          >
+            Наши лучшие работы
+          </h2>
+          <p
+            style="
+              text-align: center;
+              max-width: 700px;
+              margin: 0 auto 40px;
+              color: #555;
+            "
+          >
+            Каждый случай индивидуален. Мы гордимся тем, что помогаем нашим
+            пациентам обрести здоровую и красивую улыбку.
+          </p>
+
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img
+                  src="https://sun105-1.userapi.com/s/v1/ig2/_E4zitxi8c0TPusWU3Gvq4DO7ZVEx_XAWnOVZYrnkiju_bFbU-Z61IGePHhhghw9P8R4sIPZp94QbwUbSJm9qLdg.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,1844x1844&from=bu&cs=1844x0"
+                  alt="Пример работы 1"
+                />
+                <div class="slide-caption">
+                  <h3>Исправление глубокого прикуса</h3>
+                  <p>Лечение: 18 месяцев, брекет-система Damon</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="https://sun105-1.userapi.com/s/v1/ig2/oJ_C1xdDTbnI4r-oJ1gfTxCsf1hOto7RA1d7qZu0Po9VHEsvmGoQjz2KMiF4dVSdf_0i_UoE1EKPF6GWZgm9TGOu.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,1844x1844&from=bu&cs=1844x0"
+                  alt="Пример работы 2"
+                />
+                <div class="slide-caption">
+                  <h3>Коррекция скученности зубов</h3>
+                  <p>Лечение: 14 месяцев, элайнеры Invisalign</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="https://sun9-71.userapi.com/s/v1/ig2/IYXJoGdQxqCCtTHNPyA75L2r854dkSvnacTf-BcYdInKe3IkehKm7X3qAAkCIZRPcy3h0LInhNC7WlP0AvvsYyTt.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,1844x1844&from=bu&cs=1844x0"
+                  alt="Пример работы 3"
+                />
+                <div class="slide-caption">
+                  <h3>Исправление перекрестного прикуса</h3>
+                  <p>Лечение: 22 месяца, комбинированная терапия</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="https://sun9-58.userapi.com/s/v1/ig2/xEbNBTPlVnRNI70czipHq6SBKNmzM-tieI-_jsE-SN71LY1kj218WW5l6ixawNjguWkLsAJlqLO518B2mCnvC1vO.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,1844x1844&from=bu&cs=1844x0"
+                  alt="Пример работы 4"
+                />
+                <div class="slide-caption">
+                  <h3>Дистальный прикус у взрослого</h3>
+                  <p>Лечение: 24 месяца, брекеты + миниимпланты</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="https://sun9-11.userapi.com/s/v1/ig2/yVsA8l0sB4NAq28UCv6LMusZtmNaZ0F3w9tHTaeu0kLi0Dj5ANz1lNtxk7jof7ibTsD_r-itlCnWYnrS9KRVOEAZ.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360&from=bu&cs=360x0"
+                  alt="Пример работы 5"
+                />
+                <div class="slide-caption">
+                  <h3>Раннее лечение у ребенка</h3>
+                  <p>Лечение: 8 месяцев, пластинка с винтом</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img
+                  src="https://sun9-26.userapi.com/s/v1/ig2/TCBk8sfZv6gf8-VJStYowUWFdWcFv-_POeb2Q4LAThDj5k5dXDAHUncuZjEM9FbzCICiFxZ12symcdMXXlxyK0_v.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,1844x1844&from=bu&cs=1844x0"
+                  alt="Пример работы 6"
+                />
+                <div class="slide-caption">
+                  <h3>Эстетическая коррекция</h3>
+                  <p>Лечение: 12 месяцев, керамические брекеты</p>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+
+        <!-- Treatment Process -->
+        <div class="process-section">
+          <h2 class="process-title">Как проходит лечение</h2>
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="step-number">1</div>
+              <h3>Консультация и диагностика</h3>
+              <p>
+                Тщательное обследование, фотометрия, рентген-снимки, создание
+                диагностических моделей.
+              </p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">2</div>
+              <h3>Планирование лечения</h3>
+              <p>
+                Разработка индивидуального плана с использованием современных
+                цифровых технологий.
+              </p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">3</div>
+              <h3>Установка аппаратуры</h3>
+              <p>
+                Безболезненная фиксация брекет-системы или изготовление
+                элайнеров по вашим параметрам.
+              </p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">4</div>
+              <h3>Регулярные коррекции</h3>
+              <p>
+                Посещение ортодонта каждые 4-6 недель для активации аппаратуры и
+                контроля процесса.
+              </p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">5</div>
+              <h3>Снятие аппаратуры</h3>
+              <p>
+                После достижения идеального результата система снимается, зубы
+                полируются.
+              </p>
+            </div>
+            <div class="process-step">
+              <div class="step-number">6</div>
+              <h3>Ретенционный период</h3>
+              <p>
+                Фиксация результата с помощью ретейнеров - важнейший этап
+                лечения.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonials">
+          <h2 class="testimonials-title">Отзывы наших пациентов</h2>
+          <div class="swiper testimonialsSwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="testimonial-card">
+                  <div class="testimonial-content">
+                    <div class="tooth-avatar">
+                      <div class="tooth-shape">
+                        <img
+                          src="https://randomuser.me/api/portraits/women/45.jpg"
+                          alt="Анна К."
+                        />
+                      </div>
+                    </div>
+                    <div class="testimonial-text">
+                      <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                      </div>
+                      <p>
+                        Я очень довольна результатом! Наконец-то могу улыбаться
+                        без стеснения. Лечение заняло 1,5 года, но это того
+                        стоило. Спасибо доктору за профессионализм и
+                        внимательное отношение.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="testimonial-author">
+                    <h4>Анна К.</h4>
+                    <p>Лечение: брекет-система, 18 месяцев</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testimonial-card">
+                  <div class="testimonial-content">
+                    <div class="tooth-avatar">
+                      <div class="tooth-shape">
+                        <img
+                          src="https://randomuser.me/api/portraits/men/32.jpg"
+                          alt="Дмитрий С."
+                        />
+                      </div>
+                    </div>
+                    <div class="testimonial-text">
+                      <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                      </div>
+                      <p>
+                        Выбрал элайнеры Invisalign, потому что не хотел носить
+                        обычные брекеты. Результат превзошел ожидания! Почти
+                        незаметные каппы и отличный эффект. Персонал клиники
+                        очень внимательный.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="testimonial-author">
+                    <h4>Дмитрий С.</h4>
+                    <p>Лечение: элайнеры, 14 месяцев</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="testimonial-card">
+                  <div class="testimonial-content">
+                    <div class="tooth-avatar">
+                      <div class="tooth-shape">
+                        <img
+                          src="https://randomuser.me/api/portraits/women/68.jpg"
+                          alt="Ольга М."
+                        />
+                      </div>
+                    </div>
+                    <div class="testimonial-text">
+                      <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                      </div>
+                      <p>
+                        Приводила дочь на лечение в 10 лет. Боялись, что будет
+                        больно и неприятно, но доктор нашел подход к ребенку.
+                        Теперь у дочки ровные зубки и нет проблем с прикусом.
+                        Спасибо!
+                      </p>
+                    </div>
+                  </div>
+                  <div class="testimonial-author">
+                    <h4>Ольга М.</h4>
+                    <p>Лечение ребенка, пластинка, 10 месяцев</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+          <h2 class="faq-title">Часто задаваемые вопросы</h2>
+          <div class="faq-container">
+            <div class="faq-item">
+              <div class="faq-question">
+                <span
+                  >В каком возрасте лучше начинать ортодонтическое
+                  лечение?</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Оптимальное время для первого визита к ортодонту — 6-7 лет,
+                  когда начинают прорезываться постоянные зубы. Однако лечение
+                  возможно в любом возрасте. Детям чаще проводят лечение в два
+                  этапа (6-9 лет и 12-15 лет), взрослые могут исправить прикус в
+                  любом возрасте, хотя процесс может занять больше времени.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Брекеты или элайнеры — что лучше?</span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Оба метода эффективны, но имеют свои особенности.
+                  Брекет-системы справляются с более сложными случаями, требуют
+                  меньше дисциплины от пациента. Элайнеры (Invisalign и др.)
+                  практически незаметны, их можно снимать, но они требуют
+                  строгого соблюдения режима ношения (22 часа в сутки). Выбор
+                  зависит от клинической ситуации, возраста пациента и его
+                  предпочтений.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Больно ли носить брекеты?</span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  В первые 3-5 дней после установки и после каждой активации
+                  может возникать дискомфорт или незначительная болезненность,
+                  которая легко снимается обычными обезболивающими. Большинство
+                  пациентов описывают эти ощущения как давление, а не боль.
+                  Ортодонтическая боль — признак того, что зубы двигаются в
+                  правильном направлении.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Как долго длится ретенционный период?</span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Ретенционный период обычно равен сроку активного лечения или
+                  превышает его. Первые 6-12 месяцев нужно носить ретейнеры
+                  постоянно, затем только на ночь. В некоторых случаях (особенно
+                  у взрослых) может потребоваться пожизненное ношение ретейнеров
+                  в ночное время, чтобы сохранить результат.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Можно ли заниматься спортом с брекетами?</span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Да, но для контактных видов спорта (бокс, хоккей, регби)
+                  рекомендуется использовать специальные защитные каппы. В
+                  остальных видах спорта брекеты не мешают, но стоит избегать
+                  ударов в лицо. При занятиях на музыкальных духовых
+                  инструментах может потребоваться период адаптации.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+          <h2 class="cta-title">Готова ваша новая улыбка!</h2>
+          <p class="cta-text">
+            Запишитесь на бесплатную консультацию к нашему ортодонту и узнайте,
+            как мы можем помочь вам обрести здоровую и красивую улыбку.
+            Первичный осмотр и диагностика — бесплатно!
+          </p>
+          <a href="contacts.html" class="cta-button">Записаться на прием</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-column">
+          <h3>OrthoShark</h3>
+          <p>Современная зуботехническая и ортодонтическая лаборатория</p>
+        </div>
+        <div class="footer-column">
+          <h3>Контакты</h3>
+          <ul>
+            <li><a href="tel:+79878533366">+7 (987) 853-33-66</a></li>
+            <li><a href="mailto:orthoshark@mail.ru">orthoshark@mail.ru</a></li>
+            <li>г. Оренбург</li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Часы работы</h3>
+          <ul>
+            <li>Без выходных: 9:00 - 18:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 OrthoShark. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+      // Initialize Main Swiper
+      const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        centeredSlides: true,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 1.5,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 2.5,
+          },
+          1200: {
+            slidesPerView: 3,
+          },
+        },
+      });
+
+      // Initialize Testimonials Swiper
+      const testimonialsSwiper = new Swiper(".testimonialsSwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+          el: ".testimonialsSwiper .swiper-pagination",
+          clickable: true,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2,
+          },
+        },
+      });
+
+      // FAQ Accordion
+      const faqItems = document.querySelectorAll(".faq-item");
+      faqItems.forEach((item) => {
+        const question = item.querySelector(".faq-question");
+        question.addEventListener("click", () => {
+          item.classList.toggle("active");
+
+          // Close other items
+          faqItems.forEach((otherItem) => {
+            if (otherItem !== item && otherItem.classList.contains("active")) {
+              otherItem.classList.remove("active");
+            }
+          });
+        });
+      });
+
+      // Header scroll effect
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector("header");
+        if (window.scrollY > 50) {
+          header.style.boxShadow = "0 5px 20px rgba(0,0,0,0.15)";
+        } else {
+          header.style.boxShadow = "0 2px 15px rgba(0,0,0,0.1)";
+        }
+      });
+
+      // Animation for process steps
+      const processSteps = document.querySelectorAll(".process-step");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.transform = "translateY(0)";
+              entry.target.style.opacity = "1";
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      processSteps.forEach((step, index) => {
+        step.style.transform = "translateY(30px)";
+        step.style.opacity = "0";
+        step.style.transition = `transform 0.5s ${
+          index * 0.1
+        }s ease, opacity 0.5s ${index * 0.1}s ease`;
+        observer.observe(step);
+      });
+    </script>
+  </body>
+</html>

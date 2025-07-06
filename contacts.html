@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты | OrthoShark</title>
+    <style>
+        :root {
+            --primary: #00a3e0;
+            --primary-dark: #0077b6;
+            --secondary: #ff6b35;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            color: var(--dark);
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255,255,255,0.97);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.03);
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        nav ul li a.active {
+            color: var(--primary);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 120px 0 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        /* Contacts Section */
+        .contacts-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .contacts-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contacts-title {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contacts-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .contact-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .contact-text h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .contact-text p, 
+        .contact-text a {
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-text a:hover {
+            color: var(--primary);
+        }
+        
+        .director-photo {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .director-title {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .director-photo img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 5px solid white;
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-bottom: 60px;
+        }
+        
+        .map-title {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .map-container {
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 0 15px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .contacts-section {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .director-photo {
+                order: -1;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <img src="logo.png" alt="OrtoShark Logo">
+                <span class="logo-text">OrthoShark</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">О нас</a></li>
+                    <li><a href="examples.html">Примеры работ</a></li>
+                    <li><a href="contacts.html" class="active">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Наши контакты</h1>
+            
+            <!-- Contacts Section -->
+            <div class="contacts-section">
+                <div class="contacts-info">
+                    <h2 class="contacts-title">Свяжитесь с нами</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Телефон</h3>
+                            <a href="tel:+789878533366">+7 (987) 853-33-66</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Электронная почта</h3>
+                            <a href="mailto:orthoshark@mail.ru">orthoshark@mail.ru</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Адрес</h3>
+                            <p>г. Оренбург, ул. Стоматологическая, 15</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Часы работы</h3>
+                            <p>Без выходных: 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="director-photo">
+                    <h3 class="director-title">Дмитрий Слипченко<br><span style="font-size: 1rem; font-weight: normal;">Самый пиздатый техник в городе</span></h3>
+                    <img src="https://sun9-21.userapi.com/s/v1/ig2/44qCR3cC9ylzDHMI7ZiYPWZcoZW8Ix1u9TEdqFBJN2V3HozqJDI2MUn7-m-kWx99q0G5xj90Mo80w7FdAPOGCdXB.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x960,1080x1440,1280x1707,1440x1920,1920x2560&from=bu&cs=1920x0" alt="Дмитрий Слипченко - директор OrthoShark" width="400">
+                </div>
+            </div>
+            
+            <!-- Map Section -->
+            <div class="map-section">
+                <h2 class="map-title">Как нас найти</h2>
+                <div class="map-container">
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p&amp;source=constructor" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>OrthoShark</h3>
+                <p>Современная зуботехническая и ортодонтическая лаборатория</p>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <li><a href="tel:+789878533366">7 (987) 853-33-66</a></li>
+                    <li><a href="mailto:orthoshark@mail.ru">orthoshark@mail.ru</a></li>
+                    <li>г. Оренбург, ул. Стоматологическая, 15</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Часы работы</h3>
+                <ul>
+                    <li>Пн-Пт: 9:00 - 18:00</li>
+                    <li>Сб: 10:00 - 15:00</li>
+                    <li>Вс: выходной</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 OrthoShark. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 15px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>

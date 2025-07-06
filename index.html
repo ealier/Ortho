@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrthoShark - зуботехническая и ортодонтическая лаборатория</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <style>
+        :root {
+            --primary: #00a3e0;
+            --primary-dark: #0077b6;
+            --secondary: #ff6b35;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+        }
+        
+        body {
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-color: var(--light);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255,255,255,0.95);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 5px 0;
+            background-color: rgba(255,255,255,0.98);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+        
+        .logo-shark {
+            position: absolute;
+            left: 40px;
+            top: -10px;
+            width: 30px;
+            opacity: 0;
+            transform: rotate(-30deg);
+            transition: all 0.5s ease;
+        }
+        
+        .logo:hover .logo-shark {
+            opacity: 1;
+            transform: rotate(0deg) translateX(10px);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 16px;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(0,163,224,0.1) 0%, rgba(255,255,255,1) 100%);
+            padding: 180px 0 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: var(--gray);
+            font-weight: 300;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: #fff;
+            position: relative;
+        }
+        
+        .about::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
+            z-index: 1;
+        }
+        
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .about h2 {
+            font-size: 36px;
+            color: var(--primary-dark);
+            margin-bottom: 40px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .about p {
+            margin-bottom: 30px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,163,224,0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,163,224,0.4);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn:hover::after {
+            opacity: 1;
+        }
+        
+        .btn span {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            opacity: 0;
+            border: 5px solid var(--primary);
+        }
+        
+        .modal.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 15px;
+            color: var(--gray);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: var(--primary-dark);
+        }
+        
+        .modal h2 {
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .modal ul {
+            margin: 20px 0 30px;
+            padding-left: 20px;
+        }
+        
+        .modal ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .modal ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* For Whom Section */
+        .for-whom {
+            padding: 120px 0;
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .for-whom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1585435557343-3b07805a1295?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.03;
+            z-index: 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: var(--primary-dark);
+            margin-bottom: 60px;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .for-whom-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .lab-photo {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: all 0.5s ease;
+        }
+        
+        .lab-photo:hover {
+            transform: perspective(1000px) rotateY(0deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .lab-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .lab-photo:hover img {
+            transform: scale(1.05);
+        }
+        
+        .audience-buttons {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .audience-btn {
+            background-color: white;
+            border: 2px solid var(--primary);
+            color: var(--primary-dark);
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .audience-btn i {
+            font-size: 30px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .audience-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .audience-btn:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,163,224,0.2);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .audience-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .audience-btn:hover i {
+            color: white;
+            transform: scale(1.2);
+        }
+        
+        /* Advantages Section */
+        .advantages {
+            padding: 120px 0;
+            background-color: white;
+            position: relative;
+        }
+        
+        .advantages::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('pattern.png') repeat;
+            opacity: 0.03;
+            z-index: 0;
+        }
+        
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .advantage-card {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .advantage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transition: all 0.5s ease;
+        }
+        
+        .advantage-card:hover::before {
+            height: 100%;
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .advantage-icon {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .advantage-card:hover .advantage-icon {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        .advantage-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+            transition: all 0.3s ease;
+        }
+        
+        .advantage-card:hover h3 {
+            color: var(--primary);
+        }
+        
+        /* Uniqueness Section */
+        .uniqueness {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .uniqueness::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: url('shark-icon-white.png') center/contain no-repeat;
+            opacity: 0.1;
+            transform: rotate(30deg);
+        }
+        
+        .uniqueness::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: url('shark-icon-white.png') center/contain no-repeat;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+        }
+        
+        .uniqueness .section-title {
+            color: white;
+        }
+        
+        .uniqueness .section-title::after {
+            background-color: var(--secondary);
+        }
+        
+        .uniqueness-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .uniqueness-content p {
+            font-size: 18px;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+        
+        .uniqueness-points {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .uniqueness-point {
+            background-color: rgba(255,255,255,0.1);
+            padding: 40px 30px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .uniqueness-point:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255,255,255,0.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .uniqueness-point::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+        }
+        
+        .uniqueness-point h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .uniqueness-point h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 60px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .stat-text {
+            font-size: 18px;
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .for-whom-content {
+                flex-direction: column;
+            }
+            
+            .lab-photo {
+                width: 100%;
+                max-width: 600px;
+                margin-bottom: 40px;
+            }
+            
+            .audience-buttons {
+                width: 100%;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 20px 0;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .hero {
+                padding: 130px 0 60px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .uniqueness-point {
+                min-width: 100%;
+            }
+            
+            .stat-item {
+                min-width: 150px;
+            }
+            
+            .stat-number {
+                font-size: 40px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .audience-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-badge {
+                font-size: 14px;
+            }
+            
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <img src="logo.png" alt="OrtoShark Logo" class="logo-img">
+                <span class="logo-text">OrthoShark</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">О нас</a></li>
+                    <li><a href="examples.html">Примеры работ</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">Лидер в цифровой ортодонтии</div>
+            <h1 class="animate__animated animate__fadeInDown">Ортодонтическая лаборатория «OrthoShark»</h1>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">Классическая и цифровая ортодонтия для профессионалов и пациентов</p>
+            <div class="animate__animated animate__fadeInUp animate__delay-2s" style="margin-top: 40px;">
+                <a href="#for-whom" class="btn"><span>Наши услуги</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content" data-aos="fade-up">
+                <h2>Что такое зуботехническая и ортодонтическая лаборатория?</h2>
+                <p>OrthoShark - это современный центр цифровой стоматологии, где традиционное мастерство встречается с инновационными технологиями. Мы создаем не просто ортодонтические аппараты и зубные протезы, а комплексные решения для здоровья и красоты вашей улыбки.</p>
+                <p>Наша лаборатория оснащена передовым оборудованием для CAD/CAM моделирования, 3D-печати и точного литья, что позволяет достигать безупречного качества каждого изделия.</p>
+                <button id="moreAboutBtn" class="btn"><span>Узнать подробнее</span></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Направления нашей работы</h2>
+            <p>OrthoShark предлагает полный спектр услуг в области ортодонтии и зуботехники:</p>
+            <ul>
+                <li><strong>Цифровая ортодонтия:</strong> 3D-сканирование, виртуальное планирование лечения, производство элайнеров и индивидуальных брекет-систем</li>
+                <li><strong>Традиционная ортодонтия:</strong> Изготовление всех типов брекетов (металлические, керамические, сапфировые), ортодонтических пластинок и аппаратов</li>
+                <li><strong>Зуботехнические работы:</strong> Создание коронок, мостов, виниров, протезов любой сложности с использованием современных материалов</li>
+                <li><strong>Диагностика и планирование:</strong> Компьютерная томография, телерентгенография, анализ окклюзии и составление плана лечения</li>
+                <li><strong>Обучение и консультации:</strong> Проведение мастер-классов для стоматологов и зубных техников по современным методикам</li>
+            </ul>
+            <p style="margin-top: 20px;">Мы сотрудничаем с ведущими производителями материалов и оборудования, что гарантирует высочайшее качество нашей продукции.</p>
+        </div>
+    </div>
+
+    <!-- For Whom Section -->
+    <section class="for-whom" id="for-whom">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Для кого наши услуги</h2>
+            <div class="for-whom-content">
+                <div class="lab-photo" data-aos="fade-right">
+                    <img src="https://avatars.mds.yandex.net/get-entity_search/61037/855143621/S600xU_2x" alt="Интерьер лаборатории OrthoShark">
+                </div>
+                <div class="audience-buttons" data-aos="fade-left">
+                    <a href="for-clinics.html" class="audience-btn">
+                        <i class="fas fa-hospital"></i>
+                        Для клиник
+                    </a>
+                    <a href="for-orthodontists.html" class="audience-btn">
+                        <i class="fas fa-user-md"></i>
+                        Для врачей-ортодонтов
+                    </a>
+                    <a href="for-technicians.html" class="audience-btn">
+                        <i class="fas fa-microscope"></i>
+                        Для зубных техников
+                    </a>
+                    <a href="for-patients.html" class="audience-btn">
+                        <i class="fas fa-smile"></i>
+                        Для пациентов
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="advantages">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Преимущества OrthoShark</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="advantage-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Скорость работы</h3>
+                    <p>Средний срок изготовления ортодонтических аппаратов - 3-5 дней благодаря автоматизированному производству</p>
+                </div>
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="advantage-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Точность</h3>
+                    <p>Погрешность при изготовлении не превышает 25 микрон благодаря цифровым технологиям</p>
+                </div>
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="advantage-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Гарантия</h3>
+                    <p>12 месяцев гарантии на все изделия и бесплатная коррекция в течение первого месяца</p>
+                </div>
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="advantage-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Технологии</h3>
+                    <p>Используем только сертифицированные материалы и оборудование премиум-класса</p>
+                </div>
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="advantage-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Экспертиза</h3>
+                    <p>Над каждым проектом работает команда из 3 специалистов разного профиля</p>
+                </div>
+                <div class="advantage-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="advantage-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Поддержка</h3>
+                    <p>Круглосуточная консультационная поддержка для клиентов по всем вопросам</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Uniqueness Section -->
+    <section class="uniqueness">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">В чем наша уникальность</h2>
+            <div class="uniqueness-content" data-aos="fade-up">
+                <p>OrthoShark - это синтез многолетнего опыта, инновационных технологий и индивидуального подхода к каждому клиенту. Мы не просто выполняем заказы - мы создаем решения.</p>
+                
+                <div class="uniqueness-points">
+                    <div class="uniqueness-point" data-aos="fade-up" data-aos-delay="100">
+                        <h3>Полный цикл производства</h3>
+                        <p>От 3D-сканирования до финальной полировки - все этапы выполняются в нашей лаборатории под строгим контролем</p>
+                    </div>
+                    <div class="uniqueness-point" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Авторские методики</h3>
+                        <p>Разработанные нашими специалистами технологии изготовления элайнеров и брекет-систем запатентованы</p>
+                    </div>
+                    <div class="uniqueness-point" data-aos="fade-up" data-aos-delay="300">
+                        <h3>Экологичный подход</h3>
+                        <p>Используем биосовместимые материалы и перерабатываем 95% производственных отходов</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>OrthoShark</h3>
+                <p>Современная зуботехническая и ортодонтическая лаборатория</p>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <li><a href="tel:+79878533366">+7 (987) 853-33-66</a></li>
+                    <li><a href="mailto:orthoshark@mail.ru">orthoshark@mail.ru</a></li>
+                    <li>г. Оренбург</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Часы работы</h3>
+                <ul>
+                    <li>Без выходных: 9:00 - 18:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 OrthoShark. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-in-out'
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+                backToTop.classList.add('active');
+            } else {
+                header.classList.remove('scrolled');
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Modal Script
+        const modal = document.getElementById("aboutModal");
+        const btn = document.getElementById("moreAboutBtn");
+        const span = document.getElementsByClassName("close")[0];
+        
+        btn.onclick = function() {
+            modal.style.display = "block";
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 10);
+        }
+        
+        span.onclick = function() {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 300);
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            }
+        }
+        
+        // Back to top button
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Counter animation
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+        
+        function animateCounters() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+        
+        // Start counter animation when stats section is in view
+        const statsSection = document.querySelector('.stats');
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateCounters();
+                observer.unobserve(statsSection);
+            }
+        }, { threshold: 0.5 });
+        
+        observer.observe(statsSection);
+        
+        // Floating animation for logo shark
+        gsap.to('.logo-shark', {
+            y: 10,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+        
+        // Hover effect for advantage cards
+        const cards = document.querySelectorAll('.advantage-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const x = e.offsetX;
+                const y = e.offsetY;
+                const centerX = card.offsetWidth / 2;
+                const centerY = card.offsetHeight / 2;
+                
+                const angleX = (y - centerY) / 10;
+                const angleY = (centerX - x) / 10;
+                
+                card.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0) rotateY(0) translateY(-10px)';
+            });
+        });
+    </script>
+</body>
+</html>
